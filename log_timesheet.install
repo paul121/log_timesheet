@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @file
+ * Log timesheet install.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function log_timesheet_schema() {
+
+  // Define the log_timesheet table schema.
+  $schema['log_timesheet'] = array(
+    'description' => 'Log timesheets',
+    'fields' => array(
+      'id' => array(
+        'description' => 'The ID of the associated log.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'uid' => array(
+        'description' => 'The log timesheet owner.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'start' => array(
+        'description' => 'Timestamp when the timesheet started.',
+        'type' => 'int',
+      ),
+      'end' => array(
+        'description' => 'Timestamp when the timesheet ended.',
+        'type' => 'int',
+      ),
+    ),
+    'indexes' => array(
+      'id' => array('id'),
+      'uid' => array('uid'),
+      'start' => array('start'),
+      'end' => array('end'),
+    ),
+  );
+
+  return $schema;
+}
