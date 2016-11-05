@@ -1,0 +1,5 @@
+name = "Log Timesheet"
+description = "Adds timesheets to Log entities."
+core = 7.x
+package = "Log"
+dependencies[] = log
