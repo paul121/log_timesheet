@@ -6,14 +6,13 @@
  */
 
 /**
- * Implements hook_schema().
+ * Implements hook_field_schema().
  */
-function log_timesheet_schema() {
+function log_timesheet_field_schema() {
 
   // Define the log_timesheet table schema.
-  $schema['log_timesheet'] = array(
-    'description' => 'Log timesheets',
-    'fields' => array(
+  return array(
+    'columns' => array(
       'id' => array(
         'description' => 'The ID of the associated log.',
         'type' => 'int',
@@ -44,6 +43,4 @@ function log_timesheet_schema() {
       'end' => array('end'),
     ),
   );
-
-  return $schema;
 }
