@@ -35,12 +35,17 @@ function log_timesheet_field_schema() {
         'description' => 'Timestamp when the timesheet ended.',
         'type' => 'int',
       ),
+      'total' => array(
+        'description' => 'Total number of seconds logged in the timesheet.',
+        'type' => 'int',
+      ),
     ),
     'indexes' => array(
       'id' => array('id'),
       'uid' => array('uid'),
       'start' => array('start'),
       'end' => array('end'),
+      'total' => array('total'),
     ),
   );
 }
