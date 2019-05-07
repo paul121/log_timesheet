@@ -93,6 +93,10 @@ function log_timesheet_field_validate($entity_type, $entity, $field, $instance, 
        'label' => t('Simple timesheet text'),
        'field types' => array('log_timesheet'),
      ),
+     'log_timesheet_date_time_text' => array(
+       'label' => t('Log Timesheet Date/Time'),
+       'field types' => array('log_timesheet'),
+     ),
    );
  }
 
@@ -116,6 +120,16 @@ function log_timesheet_field_formatter_view($entity_type, $entity, $field, $inst
           )
         );
         break;
+
+      case 'log_timesheet_date_time_text':
+        $output = t(
+          'Start: @start<br>End: @end<br>Total: @total',
+          array(
+            '@start' => format_date($item['start'], 'html_datetime'),
+            '@end' => format_date($item['end'], 'html_datetime'),
+            '@total' => format_interval($item['total'], 6),
+          )
+        );
     }
 
     // Create the markup element.
