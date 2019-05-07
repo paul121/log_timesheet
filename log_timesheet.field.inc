@@ -157,6 +157,11 @@ function log_timesheet_field_widget_info() {
         'default value' => FIELD_BEHAVIOR_DEFAULT,
       ),
     ),
+    'log_timesheet_date_time' => array(
+      'label' => t('Log Timesheet Date/Time'),
+      'field types' => array('log_timesheet'),
+      'settings' => array(),
+    ),
   );
 }
 
@@ -201,6 +206,49 @@ function log_timesheet_field_widget_form(&$form, &$form_state, $field, $instance
         '#size' => 15,
       );
       break;
+
+    case 'log_timesheet_date_time':
+      $now = strtotime("now");
+      $format = 'Y-m-d H:i';
+
+      $start = isset($items[$delta]['start']) ? $items[$delta]['start'] : $now;
+      $end = isset($items[$delta]['end']) ? $items[$delta]['end'] : $now;
+      $total = isset($items[$delta]['total']) ? $items[$delta]['total'] : '0';
+
+      $element['#type'] = 'fieldset';
+      $element['#element_validate'] = array('log_timesheet_default_widget_validate');
+      $element['start date'] = array(
+        '#type' => 'date_select',
+        '#title' => t('Start time'),
+        '#default_value' => $start,
+        '#date_format' => $format,
+        '#date_label_position' => 'within',
+        '#date_increment' => 15,
+        '#date_year_range' => '-3:+3',
+        '#datepicker_options' => array(),
+      );
+
+      $element['end date'] = array(
+        '#type' => 'date_select',
+        '#title' => t('End time'),
+        '#default_value' => $end,
+        '#date_format' => $format,
+        '#date_label_position' => 'within',
+
+        '#date_increment' => 1,
+        '#date_year_range' => '-3:+3',
+        '#datepicker_options' => array(),
+      );
+
+      $element['total'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Total'),
+        '#default_value' => $total,
+        '#description' => t('The total time of the timesheet'),
+        '#element_validate' => array('element_validate_integer'),
+        '#size' => 15,
+      );
+      break;
   }
 
   return $element;
@@ -217,6 +265,13 @@ function log_timesheet_default_widget_validate($element, &$form_state) {
   // Search through the form values to find the current field value.
   $parents = $element['#parents'];
   $values = drupal_array_get_nested_value($form_state['values'], $parents);
+
+  if (isset($values['start date'])) {
+    $values['start'] = strtotime($values['start date']);
+  }
+  if (isset($values['end date'])) {
+    $values['end'] = strtotime($values['end date']);
+  }
 
   // Check if Start and End time are provided
   if (!empty($values['start']) && is_numeric($values['start']) && !empty($values['end']) && is_numeric($values['start'])) {
