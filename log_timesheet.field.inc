@@ -150,13 +150,13 @@ function log_timesheet_field_widget_info() {
  * Implements hook_field_widget_form().
  */
 function log_timesheet_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
-  $start = isset($items[$delta]['start']) ? $items[$delta]['start'] : '0';
-  $end = isset($items[$delta]['end']) ? $items[$delta]['end'] : '0';
-  $total = isset($items[$delta]['total']) ? $items[$delta]['total'] : '0';
-
-  switch ($instance['widget']['type']) {
+    switch ($instance['widget']['type']) {
 
     case 'log_timesheet_default':
+      $start = isset($items[$delta]['start']) ? $items[$delta]['start'] : '0';
+      $end = isset($items[$delta]['end']) ? $items[$delta]['end'] : '0';
+      $total = isset($items[$delta]['total']) ? $items[$delta]['total'] : '0';
+
       // Make a fieldset with three text fields
       $element['#type'] = 'fieldset';
       $element['#element_validate'] = array('log_timesheet_default_widget_validate');
