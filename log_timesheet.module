@@ -4,3 +4,10 @@
  * @file
  * Log timesheet module.
  */
+
+ /***************************************************************
+  * Includes
+  * *************************************************************/
+
+ // Include the Log Timesheet Field API functions.
+ require_once __DIR__ . '/log_timesheet.field.inc';
